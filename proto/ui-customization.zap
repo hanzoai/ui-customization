@@ -5,12 +5,11 @@
 # capability schema (zap-spec/capabilities.zap) is written in, and it is what
 # THIS repo — a Go service binary — compiles to Go views via `make zap-gen`.
 #
-# The console (web/proto/ui-customization.zap) keeps the *capnp-es* dialect of
-# the same logical contract (file-id + `interface { method @n () -> (…) }`),
-# which capnp-es compiles to TS. The two dialects are NOT interchangeable
-# (zapgen has no `interface` production; capnp-es has no bare `struct … @off`),
-# so each toolchain owns the encoding it can parse. The field set below is the
-# byte-for-byte contract both sides agree on. See CLAUDE.md "dialects".
+# ONE schema, two code targets. The console copies THIS file verbatim and
+# compiles it with `zapgen --target=ts` into TS View/Builder classes over the
+# native @hanzo/zap runtime. This repo compiles the same file with `zapgen`
+# (default target) into Go views. No capnp on either side — the field set below
+# is the single byte-for-byte contract both speak.
 #
 # RPC surface (hand-dispatched in server/, exactly as cap/ hand-writes Verify
 # on top of zapgen'd views — zapgen emits data views, never method stubs):
