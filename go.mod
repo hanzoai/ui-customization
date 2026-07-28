@@ -1,6 +1,6 @@
 module github.com/hanzoai/ui-customization
 
-go 1.26.4
+go 1.26.5
 
 require (
 	github.com/hanzoai/base v1.4.2
@@ -60,7 +60,7 @@ require (
 	github.com/gtank/ristretto255 v0.2.0 // indirect
 	github.com/hanzoai/csqlite v0.1.0 // indirect
 	github.com/hanzoai/dbx v1.17.2 // indirect
-	github.com/hanzoai/orm v0.6.14 // indirect
+	github.com/hanzoai/orm v0.6.16 // indirect
 	github.com/hanzoai/pubsub-go v1.0.0 // indirect
 	github.com/hanzoai/sqlcipher v0.1.0 // indirect
 	github.com/hanzoai/sqlite v0.3.2 // indirect
