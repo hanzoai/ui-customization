@@ -67,7 +67,7 @@ func parseModulesList(input string) []string {
 		known[m] = struct{}{}
 	}
 	out := []string{}
-	for _, part := range strings.Split(strings.ToLower(input), ",") {
+	for part := range strings.SplitSeq(strings.ToLower(input), ",") {
 		part = strings.TrimSpace(part)
 		if part == "" {
 			continue

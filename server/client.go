@@ -24,7 +24,7 @@ type Client struct {
 	peerID string
 	capBuf []byte
 
-	promiseSeq uint32 // monotonic PromiseID allocator
+	promiseSeq atomic.Uint32 // monotonic PromiseID allocator
 
 	// sendLog records, in order, every call shipped — used by the smoke test
 	// to prove a pipelined dependent call ships before the first answer
@@ -44,7 +44,7 @@ type SendEvent struct {
 	At        time.Time
 }
 
-var sendEventSeq uint64
+var sendEventSeq atomic.Uint64
 
 // pipelineIDSeq hands out process-unique promise ids for pipelined call groups.
 // Starts high (above any per-client counter) so a pipeline id never collides
@@ -77,7 +77,7 @@ func (c *Client) record(kind string, method, promiseID, target uint32) {
 	}
 	c.logMu.Lock()
 	*c.sendLog = append(*c.sendLog, SendEvent{
-		Seq:       atomic.AddUint64(&sendEventSeq, 1),
+		Seq:       sendEventSeq.Add(1),
 		Kind:      kind,
 		Method:    method,
 		PromiseID: promiseID,
@@ -88,7 +88,7 @@ func (c *Client) record(kind string, method, promiseID, target uint32) {
 }
 
 func (c *Client) nextPromise() uint32 {
-	return atomic.AddUint32(&c.promiseSeq, 1)
+	return c.promiseSeq.Add(1)
 }
 
 // call ships one request and blocks for its correlated response.

@@ -1,6 +1,6 @@
 module github.com/hanzoai/ui-customization
 
-go 1.26.5
+go 1.27.1
 
 require (
 	github.com/hanzoai/base v1.5.11
